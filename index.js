@@ -24,10 +24,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors({
-  origin: ["http://localhost:3000","http://localhost:3002"],
-  methods: ["GET", "POST", "PATCH", "PUT", "DELETE"]
-}));
+app.use(cors());
 
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
@@ -52,9 +49,9 @@ app.use("/users", userRoutes);
 
 
 /* MONGOOSE SETUP */
-const PORT = process.env.PORT || 6001;
+const PORT = 3001;
 mongoose
-  .connect(process.env.MONGO_URL, {
+  .connect("mongodb+srv://devendra:devendra@flexmoney.mniburm.mongodb.net/store?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
